@@ -11,4 +11,4 @@ Play on https://anjula.live/MerryMinecraft
 
 ### FROST BITE!
 
-<img src="assets/FROST_BITE.png.png">
+<img src="assets/FROST_BITE.png">
