@@ -1,2 +1,23 @@
-# Auto detect text files and perform LF normalization
+# Auto-detect text files and perform LF normalization
 * text=auto
+
+# Explicitly declare text files
+*.html text
+*.css text
+*.js text
+*.md text
+*.txt text
+
+# Treat multimedia and archives as binary (no line ending conversion)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
+*.mp3 binary
+*.wav binary
+*.ogg binary
+
+# OS specific
+.DS_Store binary
