@@ -1,0 +1,23 @@
+# Auto-detect text files, normalize line endings
+* text=auto
+
+# Force to always be treated as text
+*.html text
+*.css text
+*.js text
+*.md text
+*.txt text
+*.svg text
+
+# Prevents Git from corrupting your 'SnowyNights.mp3'
+*.mp3 binary
+*.wav binary
+*.ogg binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+
+# OS Specific
+.DS_Store binary

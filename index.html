@@ -1,1363 +1,726 @@
 <!DOCTYPE html>
-<!-- Ho Ho Ho! Merry Christmas! -->
 <html lang="en">
-<!-- Silent night, holy night -->
 <head>
-    <!-- All is calm, all is bright -->
     <meta charset="UTF-8">
-    <!-- Round yon Virgin, Mother and Child -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- Holy Infant so tender and mild -->
     <title>Merry Mine-Craft</title>
-    <!-- Sleep in heavenly peace -->
-    <!-- Pixel Font -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎅</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <!-- Jingle bells, jingle bells -->
+    
     <style>
-        /* Jingle all the way */
         :root {
-            /* Oh, what fun it is to ride */
-            --bg-color: #0f1626; /* Night Sky */
-            /* In a one horse open sleigh */
-            --grass-top: #f0f8ff; /* Snow */
-            /* Dashing through the snow */
-            --grass-side: #2d5a27; /* Dark Green Side */
-            /* In a one horse open sleigh */
-            --dirt: #5d4037; /* Frozen Dirt */
-            /* O'er the fields we go */
+            --bg-color: #0f1626; 
+            --grass-top: #f0f8ff; 
+            --grass-side: #2d5a27; 
+            --dirt: #5d4037; 
             --stone: #757575;
-            /* Laughing all the way */
             --ui-bg: #c6c6c6;
-            /* Bells on bob tails ring */
             --ui-border-light: #ffffff;
-            /* Making spirits bright */
             --ui-border-dark: #555555;
-            /* What fun it is to ride and sing */
             --text-color: #3f3f3f;
-            /* A sleighing song tonight */
-            --accent: #c62828; /* Holiday Red */
+            --accent: #c62828; 
         }
-        /* Deck the halls with boughs of holly */
+
         body {
-            /* Fa la la la la, la la la la */
             margin: 0;
-            /* 'Tis the season to be jolly */
             background-color: var(--bg-color);
-            /* Don we now our gay apparel */
-            /* Snowfall pattern */
             background-image: 
                 radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
                 radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
                 radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
-            /* Troll the ancient Yule tide carol */
             background-size: 550px 550px, 350px 350px, 250px 250px;
-            /* See the blazing Yule before us */
             background-position: 0 0, 40px 60px, 130px 270px;
-            /* Strike the harp and join the chorus */
             font-family: 'VT323', monospace;
-            /* Follow me in merry measure */
             display: flex;
-            /* While I tell of Yule tide treasure */
             justify-content: center;
-            /* Fast away the old year passes */
             align-items: center;
-            /* Hail the new, ye lads and lasses */
             height: 100vh;
-            /* Sing we joyous, all together */
             width: 100vw;
-            /* Heedless of the wind and weather */
             color: white;
-            /* Joy to the world! */
             touch-action: none; 
-            /* The Lord is come */
             overflow: hidden;
-            /* Let earth receive her King */
+            will-change: background-position;
             animation: snow 20s linear infinite;
         }
-        /* Let every heart prepare Him room */
+
         @keyframes snow {
-            /* And Heaven and nature sing */
             0% { background-position: 0 0, 40px 60px, 130px 270px; }
-            /* And Heaven and nature sing */
             100% { background-position: 550px 550px, 390px 410px, 380px 520px; }
         }
-        /* And Heaven, and Heaven, and nature sing */
-        /* MAIN LAYOUT CONTAINER */
+
         #game-container {
-            /* You better watch out */
             display: flex;
-            /* You better not cry */
-            flex-direction: column; /* Default to mobile (column) */
-            /* Better not pout */
+            flex-direction: column;
             align-items: center;
-            /* I'm telling you why */
             justify-content: center;
-            /* Santa Claus is coming to town */
             width: 100%;
-            /* He's making a list */
             height: 100%;
-            /* And checking it twice */
             gap: 10px;
-            /* Gonna find out Who's naughty and nice */
             padding: 10px;
-            /* Santa Claus is coming to town */
             box-sizing: border-box;
         }
-        /* He sees you when you're sleeping */
-        /* SIDEBAR (Title + Stats) */
+
         #sidebar {
-            /* He knows when you're awake */
             display: flex;
-            /* He knows if you've been bad or good */
             flex-direction: column;
-            /* So be good for goodness sake! */
             align-items: center;
-            /* Rudolph the Red-Nosed Reindeer */
             justify-content: center;
-            /* Had a very shiny nose */
             z-index: 10;
-            /* And if you ever saw it */
             text-align: center;
         }
-        /* You would even say it glows */
+
         h1 {
-            /* All of the other reindeer */
             margin: 0;
-            /* Used to laugh and call him names */
             font-size: clamp(2rem, 4vw, 3.5rem);
-            /* They never let poor Rudolph */
             color: #ff5252;
-            /* Join in any reindeer games */
             text-shadow: 4px 4px 0 #fff;
-            /* Then one foggy Christmas Eve */
             letter-spacing: 2px;
-            /* Santa came to say */
             line-height: 0.9;
         }
-        /* Rudolph with your nose so bright */
+
         .subtitle {
-            /* Won't you guide my sleigh tonight? */
             color: #81c784;
-            /* Then how the reindeer loved him */
             font-size: 1.3rem;
-            /* As they shouted out with glee */
             margin-bottom: 10px;
-            /* Rudolph the Red-Nosed Reindeer */
             text-shadow: 1px 1px 0 #000;
         }
-        /* You'll go down in history */
-        /* Minecraft UI Box Style */
+
         .mc-panel {
-            /* Frosty the snowman */
             background: var(--ui-bg);
-            /* Was a jolly happy soul */
             border: 4px solid;
-            /* With a corncob pipe and a button nose */
             border-color: var(--ui-border-light) var(--ui-border-dark) var(--ui-border-dark) var(--ui-border-light);
-            /* And two eyes made out of coal */
             padding: 5px 15px;
-            /* Frosty the snowman */
             color: var(--text-color);
-            /* Is a fairy tale they say */
             font-size: 1.5rem;
-            /* He was made of snow but the children know */
             display: flex;
-            /* How he came to life one day */
             gap: 20px;
-            /* There must have been some magic */
             align-items: center;
-            /* In that old silk hat they found */
             box-shadow: 0 8px 0 rgba(0,0,0,0.5);
-            /* For when they placed it on his head */
             margin-bottom: 5px;
         }
-        /* He began to dance around */
+
         .hearts {
-            /* O Christmas Tree, O Christmas Tree */
             color: #d32f2f;
-            /* How lovely are thy branches */
             text-shadow: 2px 2px 0 #000;
-            /* Not only green when summer's here */
             letter-spacing: 2px;
         }
-        /* But also when 'tis cold and drear */
-        /* GAME GRID */
+
         #grid {
-            /* O Christmas Tree, O Christmas Tree */
             display: grid;
-            /* Much pleasure thou can'st give me */
-            /* FIX: Use minmax(0, 1fr) to prevent content from blowing out the cell size */
             grid-template-columns: repeat(7, minmax(0, 1fr));
-            /* Hark! the herald angels sing */
             gap: 0;
-            /* Glory to the newborn King! */
             background: #111;
-            /* Peace on earth and mercy mild */
             padding: 4px;
-            /* God and sinners reconciled */
             border: 4px solid #fff;
-            /* Joyful, all ye nations rise */
             box-shadow: 0 0 20px #c62828;
-            /* Join the triumph of the skies */
             image-rendering: pixelated;
-            /* With the angelic host proclaim */
-            /* CRITICAL: Size based on Height to fit screen */
             height: 60vh; 
-            /* Christ is born in Bethlehem */
             aspect-ratio: 7/10;
-            /* Hark! the herald angels sing */
             max-width: 95vw;
         }
-        /* Glory to the newborn King! */
-        /* DESKTOP LAYOUT (Landscape) */
+
         @media (min-width: 800px) and (min-height: 500px) {
-            /* We wish you a Merry Christmas */
             #game-container {
-                /* We wish you a Merry Christmas */
-                flex-direction: row; /* Switch to side-by-side */
-                /* We wish you a Merry Christmas */
+                flex-direction: row;
                 justify-content: center;
-                /* And a Happy New Year */
                 gap: 50px;
             }
-            /* Good tidings we bring */
             #sidebar {
-                /* To you and your kin */
-                align-items: flex-end; /* Align text to right towards game */
-                /* Good tidings for Christmas */
+                align-items: flex-end;
                 text-align: right;
             }
-            /* And a Happy New Year */
             h1 {
-                /* Oh, bring us a figgy pudding */
                 font-size: 5rem;
-                /* Oh, bring us a figgy pudding */
                 margin-bottom: 20px;
             }
-            /* And a cup of good cheer */
             #grid {
-                /* We won't go until we get some */
-                height: 85vh; /* Bigger grid on PC */
+                height: 85vh;
             }
         }
-        /* So bring it right here */
+
         .cell {
-            /* It came upon the midnight clear */
             width: 100%;
-            /* That glorious song of old */
             height: 100%;
-            /* From angels bending near the earth */
             background-color: var(--grass-top);
-            /* To touch their harps of gold */
             cursor: pointer;
-            /* Peace on the earth, good will to men */
             display: flex;
-            /* From heaven's all-gracious King */
             justify-content: center;
-            /* The world in solemn stillness lay */
             align-items: center;
-            /* To hear the angels sing */
-            font-size: clamp(12px, 2.5vh, 28px); /* Responsive font based on height */
-            /* The First Noel, the Angels did say */
+            font-size: clamp(12px, 2.5vh, 28px);
             user-select: none;
-            /* Was to certain poor shepherds in fields as they lay */
             position: relative;
-            /* In fields where they lay keeping their sheep */
             border: 1px solid rgba(0,0,0,0.1);
-            /* On a cold winter's night that was so deep */
             box-shadow: inset -4px -4px 0 rgba(0,0,0,0.15), inset 4px 4px 0 rgba(255,255,255,0.8);
-            /* FIX: Prevent overflow */
             overflow: hidden;
         }
-        /* Noel, Noel, Noel, Noel */
+
         .cell.closed:hover {
-            /* Born is the King of Israel! */
             filter: brightness(0.95);
         }
-        /* O Come, All Ye Faithful */
+
         .cell.revealed {
-            /* Joyful and triumphant */
             background-color: var(--dirt);
-            /* O come ye, O come ye to Bethlehem */
             box-shadow: inset 3px 3px 0 rgba(0,0,0,0.3);
-            /* Come and behold Him */
             color: white;
-            /* Born the King of Angels */
             text-shadow: 2px 2px 0 #000;
         }
-        /* O come, let us adore Him */
+
         .cell.revealed.empty {
-            /* O come, let us adore Him */
             opacity: 0.95;
         }
-        /* O come, let us adore Him, Christ the Lord */
+        
         .num-1 { color: #5555FF; }
         .num-2 { color: #55FF55; }
         .num-3 { color: #FF5555; }
         .num-4 { color: #5555FF; }
         .num-5 { color: #FF5555; }
-        /* God rest ye merry, gentlemen */
+
         .cell.bomb {
-            /* Let nothing you dismay */
             background-color: #d32f2f;
-            /* Remember, Christ, our Saviour */
             animation: explode 0.4s;
         }
-        /* Was born on Christmas day */
+
         .cell.flagged::after {
-            /* To save us all from Satan's power */
             content: '🚩';
-            /* When we were gone astray */
             font-size: 80%; 
-            /* O tidings of comfort and joy */
             filter: drop-shadow(2px 2px 0 rgba(255,255,255,0.5));
         }
-        /* Comfort and joy */
-        /* CONTROLS */
+
         #mobile-controls {
-            /* O tidings of comfort and joy */
             position: fixed;
-            /* Up on the house top click, click, click */
             bottom: 10px;
-            /* Down through the chimney with good Saint Nick */
             display: flex;
-            /* First comes the stocking of little Nell */
             gap: 15px;
-            /* Oh, dear Santa, fill it well */
             z-index: 50;
-            /* Give her a dolly that laughs and cries */
             width: 100%;
-            /* One that will open and shut her eyes */
             justify-content: center;
-            /* Next comes the stocking of little Will */
             pointer-events: none;
         }
-        /* Oh, just see what a glorious fill */
+
         .tool-btn {
-            /* Here is a hammer and lots of tacks */
             pointer-events: auto;
-            /* Also a ball and a whip that cracks */
             width: 70px;
-            /* I saw mommy kissing Santa Claus */
             height: 70px;
-            /* Underneath the mistletoe last night */
             background: var(--ui-bg);
-            /* She didn't see me creep */
             border: 4px solid;
-            /* Down the stairs to have a peep */
             border-color: var(--ui-border-light) var(--ui-border-dark) var(--ui-border-dark) var(--ui-border-light);
-            /* She thought that I was tucked up in my bedroom, fast asleep */
             font-family: 'VT323', monospace;
-            /* Then I saw mommy tickle Santa Claus */
             font-size: 2rem;
-            /* Underneath his beard so snowy white */
             display: flex;
-            /* Oh, what a laugh it would have been */
             justify-content: center;
-            /* If Daddy had only seen */
             align-items: center;
-            /* Mommy kissing Santa Claus last night */
             cursor: pointer;
-            /* Rockin' around the Christmas tree */
             box-shadow: 0 4px 0 rgba(0,0,0,0.5);
-            /* At the Christmas party hop */
             transition: transform 0.1s;
         }
-        /* Mistletoe hung where you can see */
+
         .tool-btn:active {
-            /* Every couple tries to stop */
             transform: translateY(4px);
-            /* Rockin' around the Christmas tree */
             box-shadow: none;
-            /* Let the Christmas spirit ring */
             border-color: var(--ui-border-dark) var(--ui-border-light) var(--ui-border-light) var(--ui-border-dark);
         }
-        /* Later we'll have some pumpkin pie */
+
         .tool-btn.selected {
-            /* And we'll do some caroling */
             background: #81c784;
-            /* You will get a sentimental feeling when you hear */
             border-color: var(--ui-border-dark) var(--ui-border-light) var(--ui-border-light) var(--ui-border-dark);
-            /* Voices singing, "Let's be jolly */
             transform: scale(0.95);
-            /* Deck the halls with boughs of holly" */
             box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2);
         }
-        /* Rockin' around the Christmas tree */
+        
         #mute-btn {
-            /* Have a happy holiday */
             width: 50px;
-            /* Everyone dancin' merrily */
             height: 50px;
-            /* In the new old-fashioned way */
             font-size: 1.2rem;
-            /* Last Christmas, I gave you my heart */
             position: fixed;
-            /* But the very next day you gave it away */
             top: 20px;
-            /* This year, to save me from tears */
             right: 20px;
-            /* I'll give it to someone special */
             pointer-events: auto;
         }
-        /* Once bitten and twice shy */
-        /* Modals */
+
         .modal {
-            /* I keep my distance, but you still catch my eye */
             position: fixed;
-            /* Tell me, baby, do you recognize me? */
             top: 0; left: 0; right: 0; bottom: 0;
-            /* Well, it's been a year, it doesn't surprise me */
             background: rgba(0,0,0,0.85);
-            /* I wrapped it up and sent it */
             display: flex;
-            /* With a note saying, "I love you," I meant it */
             flex-direction: column;
-            /* Now I know what a fool I've been */
             justify-content: center;
-            /* But if you kissed me now, I know you'd fool me again */
             align-items: center;
-            /* Felíz Navidad */
             z-index: 100;
-            /* Felíz Navidad */
             backdrop-filter: blur(8px);
-            /* Felíz Navidad */
             animation: fadeIn 0.3s;
         }
-        /* Próspero Año y Felicidad */
+        
         .hidden { display: none; }
-        /* I wanna wish you a Merry Christmas */
+
         .mc-btn {
-            /* I wanna wish you a Merry Christmas */
             background: #757575;
-            /* I wanna wish you a Merry Christmas */
             color: white;
-            /* From the bottom of my heart */
             border: 4px solid;
-            /* White Christmas */
             border-color: #fff #333 #333 #fff;
-            /* I'm dreaming of a white Christmas */
             padding: 15px 40px;
-            /* Just like the ones I used to know */
             font-size: 1.8rem;
-            /* Where the treetops glisten */
             font-family: 'VT323', monospace;
-            /* And children listen */
             cursor: pointer;
-            /* To hear sleigh bells in the snow */
             text-shadow: 2px 2px 0 #000;
-            /* I'm dreaming of a white Christmas */
             margin-top: 20px;
-            /* With every Christmas card I write */
             width: 280px;
-            /* May your days be merry and bright */
             transition: background 0.2s;
         }
-        /* And may all your Christmases be white */
         .mc-btn:hover { background: #888; }
         .mc-btn:active {
-            /* Have Yourself a Merry Little Christmas */
             border-color: #333 #fff #fff #333;
         }
-        /* Let your heart be light */
+        
         .mc-btn.green { background: #2e7d32; }
         .mc-btn.green:hover { background: #388e3c; }
-        /* From now on our troubles will be out of sight */
+
         .instructions-list {
-            /* Have Yourself a Merry Little Christmas */
             list-style: none;
-            /* Make the Yule-tide gay */
             padding: 0;
-            /* From now on our troubles will be miles away */
             text-align: left;
-            /* Here we are as in olden days */
             font-size: 1.2rem;
-            /* Happy golden days of yore */
             color: #333;
         }
-        /* Faithful friends who are dear to us */
         .instructions-list li { margin-bottom: 5px; }
-        /* Gather near to us once more */
+
         @keyframes explode {
-            /* Through the years we all will be together */
             0% { background: #fff; transform: scale(1.2); }
-            /* If the Fates allow */
             50% { background: #ffeb3b; transform: scale(1.1) rotate(5deg); }
-            /* Hang a shining star upon the highest bough */
             100% { background: #d32f2f; transform: scale(1) rotate(0deg); }
         }
-        /* And have yourself a merry little Christmas now */
+
         .shake {
-            /* Winter Wonderland */
             animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
         }
-        /* Sleigh bells ring, are you listening? */
+
         @keyframes shake {
-            /* In the lane, snow is glistening */
             10%, 90% { transform: translate3d(-2px, 0, 0); }
-            /* A beautiful sight */
             20%, 80% { transform: translate3d(3px, 0, 0); }
-            /* We're happy tonight */
             30%, 50%, 70% { transform: translate3d(-5px, 0, 0); }
-            /* Walking in a winter wonderland */
             40%, 60% { transform: translate3d(5px, 0, 0); }
         }
-        /* Gone away is the bluebird */
+        
         @keyframes fadeIn {
-            /* Here to stay is a new bird */
             from { opacity: 0; }
-            /* He sings a love song */
             to { opacity: 1; }
         }
-        /* As we go along */
     </style>
 </head>
 <body>
-    <!-- Walking in a winter wonderland -->
+    <audio id="bg-music" loop preload="auto" src="assets/SnowyNights.mp3"></audio>
 
-    <!-- 
-      *** AUDIO SETTINGS ***
-      Paste your mp3 link in the src="" below.
-    -->
-    <!-- In the meadow we can build a snowman -->
-    <audio id="bg-music" loop src="assets/SnowyNights.mp3"></audio>
-    <!-- Then pretend that he is Parson Brown -->
-
-    <!-- He'll say, Are you married? -->
     <div id="game-container">
-        <!-- We'll say, No man -->
-        <!-- Sidebar: Title and Stats -->
-        <!-- But you can do the job -->
         <div id="sidebar">
-            <!-- When you're in town -->
             <h1>MERRY<br>MINE-CRAFT</h1>
-            <!-- Later on, we'll conspire -->
             <div class="subtitle">Holiday Edition</div>
-            <!-- As we dream by the fire -->
-            
-            <!-- To face unafraid -->
             <div class="mc-panel">
-                <!-- The plans that we've made -->
                 <div>❤️ <span id="health-display" class="hearts">3/3</span></div>
-                <!-- Walking in a winter wonderland -->
                 <div>🎁 <span id="score-display">0</span></div>
             </div>
         </div>
-
-        <!-- It's Beginning to Look a Lot Like Christmas -->
-        <!-- The Game Grid -->
-        <!-- Everywhere you go -->
         <div id="grid"></div>
     </div>
 
-    <!-- Take a look in the five-and-ten, glistening once again -->
-    <!-- Controls -->
-    <!-- With candy canes and silver lanes aglow -->
     <div id="mobile-controls">
-        <!-- It's beginning to look a lot like Christmas -->
         <button id="btn-dig" class="tool-btn selected" onclick="setMode('dig')">⛏️</button>
-        <!-- Toys in every store -->
         <button id="btn-flag" class="tool-btn" onclick="setMode('flag')">🚩</button>
     </div>
     
-    <!-- But the prettiest sight to see -->
     <button id="mute-btn" class="tool-btn" onclick="toggleMusic()">🔊</button>
-    <!-- Is the holly that will be -->
 
-
-    <!-- On your own front door -->
-    <!-- Instructions Modal -->
     <div id="instructions-modal" class="modal">
-        <!-- A pair of hopalong boots and a pistol that shoots -->
         <h1 style="color: #55ff55; font-size: 2.5rem; margin:0 0 10px 0;">HOW TO PLAY</h1>
-        <!-- Is the wish of Barney and Ben -->
         <div class="mc-panel" style="flex-direction: column; width: 85%; max-width: 350px;">
-            <!-- Dolls that will talk and will go for a walk -->
             <ul class="instructions-list">
-                <!-- Is the hope of Janice and Jen -->
                 <li>⛏️ <b>DIG</b> snow blocks to find GIFTS 🎁</li>
-                <!-- And Mom and Dad can hardly wait -->
                 <li>❤️ You have <b>3 HEARTS</b>.</li>
-                <!-- For school to start again -->
                 <li>🧨 <b>TNTs</b> [10] hurt you! Avoid them!</li>
-                <!-- It's beginning to look a lot like Christmas -->
                 <li>🚩 Use <b>FLAGS</b> to mark TNT.</li>
-                <!-- Soon the bells will start -->
                 <li>🔢 <b>Numbers</b> show TNTs nearby.</li>
             </ul>
         </div>
-        <!-- And the thing that will make them ring -->
         <button class="mc-btn green" onclick="startGame()">START GAME</button>
     </div>
 
-    <!-- Is the carol that you sing -->
-    <!-- Win/Loss Modals -->
-    <!-- Right within your heart -->
     <div id="game-over-modal" class="modal hidden">
-        <!-- Silver Bells -->
         <h1 style="color: #ff5555; font-size: 4rem;">FROST BITE!</h1>
-        <!-- Silver bells, silver bells -->
         <p style="font-size: 2rem; color: white; text-shadow: 2px 2px #000; margin: 0;">Score: <span id="final-score-loss">0</span></p>
-        <!-- It's Christmas time in the city -->
         <button class="mc-btn" onclick="resetGame()">TRY AGAIN</button>
     </div>
 
-    <!-- Ring-a-ling, hear them ring -->
     <div id="win-modal" class="modal hidden">
-        <!-- Soon it will be Christmas day -->
         <h1 style="color: #55ff55; font-size: 4rem;">SANTA PROUD!</h1>
-        <!-- City sidewalks, busy sidewalks -->
         <p style="font-size: 2rem; color: white; text-shadow: 2px 2px #000; margin: 0;">Gifts: <span id="final-score-win">0</span></p>
-        <!-- Dressed in holiday style -->
         <button class="mc-btn green" onclick="resetGame()">NEXT LEVEL</button>
     </div>
 
     <script>
-        // In the air there's a feeling of Christmas
-        // --- MUSIC & SFX SYSTEM ---
-        // Children laughing, people passing
         const MusicSys = {
-            // Meeting smile after smile
             ctx: null,
-            // And on every street corner you'll hear
-            isPlaying: false,
-            // Silver bells, silver bells
             muted: false,
-            // It's Christmas time in the city
-            timeout: null,
-            // Ring-a-ling, hear them ring
-            noteIndex: 0,
-            // Soon it will be Christmas day
             useMp3: false,
-            // Strings of street lights, even stop lights
             audioElement: document.getElementById('bg-music'),
             
-            // Blink a bright red and green
-            // Slower Jingle Bells
-            melody: [
-                // As the shoppers rush home with their treasures
-                {f: 329.63, d: 0.2}, {f: 329.63, d: 0.2}, {f: 329.63, d: 0.4}, 
-                // Hear the snow crunch, see the kids bunch
-                {f: 329.63, d: 0.2}, {f: 329.63, d: 0.2}, {f: 329.63, d: 0.4}, 
-                // This is Santa's big scene
-                {f: 329.63, d: 0.2}, {f: 392.00, d: 0.2}, {f: 261.63, d: 0.2}, {f: 293.66, d: 0.2}, 
-                // And above all this bustle
-                {f: 329.63, d: 0.8}, 
-                // You'll hear
-                {f: 349.23, d: 0.2}, {f: 349.23, d: 0.2}, {f: 349.23, d: 0.3}, {f: 349.23, d: 0.1}, 
-                // Silver bells, silver bells
-                {f: 349.23, d: 0.2}, {f: 329.63, d: 0.2}, {f: 329.63, d: 0.2}, {f: 329.63, d: 0.1}, 
-                // It's Christmas time in the city
-                {f: 329.63, d: 0.2}, {f: 293.66, d: 0.2}, {f: 293.66, d: 0.2}, {f: 329.63, d: 0.2}, 
-                // Ring-a-ling, hear them ring
-                {f: 293.66, d: 0.4}, {f: 392.00, d: 0.4} 
-            ],
-            
-            // Soon it will be Christmas day
             init: function() {
-                // FIX: Always init AudioContext for SFX, regardless of music source
                 window.AudioContext = window.AudioContext || window.webkitAudioContext;
                 this.ctx = new AudioContext();
 
-                // Happy Holiday
-                if (this.audioElement.src && this.audioElement.src !== window.location.href) {
-                    // Happy Holiday
+                this.audioElement.addEventListener('error', (e) => {
+                    console.log("MP3 failed to load/find. Check assets folder.");
+                    this.useMp3 = false;
+                });
+
+                // GitHub Pages Case Sensitivity Check
+                if (this.audioElement.src) {
                     this.useMp3 = true;
                 }
             },
 
-            // === MUSIC PLAYBACK ===
-            // Happy Holiday
-            playNote: function(freq, duration) {
-                // Happy Holiday
-                if(this.muted || !this.ctx) return;
-                // May the calendar keep bringing
-                const osc = this.ctx.createOscillator();
-                // Happy Holidays to you
-                const gain = this.ctx.createGain();
-                // Come to us this night
-                osc.type = 'square'; 
-                // The light of the world
-                osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-                // Lower volume for music so SFX stand out
-                // We're so glad you're here
-                gain.gain.setValueAtTime(0.03, this.ctx.currentTime);
-                // To bring us some cheer
-                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + duration - 0.05);
-                // Christmas Time Is Here
-                osc.connect(gain);
-                // Happiness and cheer
-                gain.connect(this.ctx.destination);
-                // Fun for all that children call
-                osc.start();
-                // Their favorite time of the year
-                osc.stop(this.ctx.currentTime + duration);
-            },
-
-            // Snowflakes in the air
-            loop: function() {
-                // Carols everywhere
-                if(!this.isPlaying || this.useMp3) return;
-                // Olden times and ancient rhymes
-                const note = this.melody[this.noteIndex];
-                // Of love and dreams to share
-                this.playNote(note.f, note.d);
-                // Sleigh bells in the air
-                this.noteIndex = (this.noteIndex + 1) % this.melody.length;
-                // Beauty everywhere
-                const speed = 0.8; 
-                // Yuletide by the fireside
-                this.timeout = setTimeout(() => this.loop(), (note.d * 1000) / speed);
-            },
-
-            // And joyful memories there
             start: function() {
-                // Christmas Time Is Here
-                // FIX: Ensure context is running for SFX even if using MP3
                 if(this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
 
-                if(this.useMp3) {
-                    // We'll be drawing near
-                    if(!this.muted) this.audioElement.play().catch(e => console.log("Audio play failed", e));
-                    // Oh, that we could always see
-                    this.isPlaying = true;
-                } else {
-                    // Such spirit through the year
-                    // Sleigh bells in the air
-                    // Beauty everywhere
-                    if(this.isPlaying) return;
-                    // Yuletide by the fireside
-                    this.isPlaying = true;
-                    // And joyful memories there
-                    this.loop();
+                if(this.useMp3 && !this.muted) {
+                     const playPromise = this.audioElement.play();
+                     if (playPromise !== undefined) {
+                         playPromise.catch(error => {
+                             console.log("Auto-play prevented by browser policy.");
+                         });
+                     }
                 }
             },
 
-            // Christmas Time Is Here
             stop: function() {
-                // We'll be drawing near
-                this.isPlaying = false;
-                // Oh, that we could always see
                 if(this.useMp3) {
-                    // Such spirit through the year
                     this.audioElement.pause();
-                    // I Saw Three Ships
                     this.audioElement.currentTime = 0;
-                } else {
-                    // I saw three ships come sailing in
-                    clearTimeout(this.timeout);
                 }
             },
 
-            // On Christmas Day, on Christmas Day
             toggleMute: function() {
-                // I saw three ships come sailing in
                 this.muted = !this.muted;
-                // On Christmas Day in the morning
                 const btn = document.getElementById('mute-btn');
-                // And what was in those ships all three?
                 btn.innerText = this.muted ? '🔇' : '🔊';
                 
-                // On Christmas Day, on Christmas Day
                 if(this.muted) {
-                     // And what was in those ships all three?
                      if(this.useMp3) this.audioElement.pause();
-                     // On Christmas Day in the morning
-                     else clearTimeout(this.timeout);
                 } else {
-                    // The Virgin Mary and Christ were there
-                    if(this.isPlaying) {
-                        // On Christmas Day, on Christmas Day
-                        if(this.useMp3) this.audioElement.play();
-                        // The Virgin Mary and Christ were there
-                        else this.loop();
-                    }
+                    if(this.useMp3) this.audioElement.play().catch(e=>console.log(e));
                 }
             },
 
-            // === SOUND EFFECTS ===
-            // On Christmas Day in the morning
-            
-            // 1. Dig: Gravel/Crunch (Filtered Noise)
-            // Pray whither sailed those ships all three?
+            // SFX
             playDig: function() {
-                // On Christmas Day, on Christmas Day
                 if(this.muted || !this.ctx) return;
-                // Pray whither sailed those ships all three?
-                const bufferSize = this.ctx.sampleRate * 0.1; // 0.1 seconds
-                // On Christmas Day in the morning
+                const bufferSize = this.ctx.sampleRate * 0.1;
                 const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-                // O led them into Bethlehem
                 const data = buffer.getChannelData(0);
-                // On Christmas Day, on Christmas Day
-                for (let i = 0; i < bufferSize; i++) {
-                    // O led them into Bethlehem
-                    data[i] = Math.random() * 2 - 1;
-                }
-
-                // On Christmas Day in the morning
+                for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
                 const noise = this.ctx.createBufferSource();
-                // Up on the Housetop
                 noise.buffer = buffer;
-                
-                // Up on the housetop reindeer pause
                 const filter = this.ctx.createBiquadFilter();
-                // Out jumps good old Santa Claus
                 filter.type = 'lowpass';
-                // Down through the chimney with lots of toys
                 filter.frequency.value = 1000;
-
-                // All for the little ones, Christmas joys
                 const gain = this.ctx.createGain();
-                // Ho, ho, ho! Who wouldn't go?
                 gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
-                // Ho, ho, ho! Who wouldn't go?
                 gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.1);
-
-                // Up on the housetop, click, click, click
                 noise.connect(filter);
-                // Down through the chimney with good Saint Nick
                 filter.connect(gain);
-                // First comes the stocking of little Nell
                 gain.connect(this.ctx.destination);
-                // Oh, dear Santa, fill it well
                 noise.start();
             },
 
-            // 2. Flag: Sharp Click/Blip
-            // Give her a dolly that laughs and cries
             playFlag: function() {
-                // One that will open and shut her eyes
                 if(this.muted || !this.ctx) return;
-                // Next comes the stocking of little Will
                 const osc = this.ctx.createOscillator();
-                // Oh, just see what a glorious fill
                 const gain = this.ctx.createGain();
-                
-                // Here is a hammer and lots of tacks
                 osc.type = 'triangle';
-                // Also a ball and a whip that cracks
                 osc.frequency.setValueAtTime(800, this.ctx.currentTime);
-                // Deck the Halls
                 osc.frequency.exponentialRampToValueAtTime(1200, this.ctx.currentTime + 0.05);
-
-                // Deck the halls with boughs of holly
                 gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
-                // Fa la la la la, la la la la
                 gain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 0.05);
-
-                // 'Tis the season to be jolly
                 osc.connect(gain);
-                // Fa la la la la, la la la la
                 gain.connect(this.ctx.destination);
-                // Don we now our gay apparel
                 osc.start();
-                // Fa la la la la, la la la la
                 osc.stop(this.ctx.currentTime + 0.05);
             },
 
-            // 3. Explosion: Deep Rumbling Noise
-            // Troll the ancient Yule tide carol
             playExplode: function() {
-                // Fa la la la la, la la la la
                 if(this.muted || !this.ctx) return;
-                // See the blazing Yule before us
-                const bufferSize = this.ctx.sampleRate * 0.5; // 0.5 seconds
-                // Fa la la la la, la la la la
+                const bufferSize = this.ctx.sampleRate * 0.5;
                 const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-                // Strike the harp and join the chorus
                 const data = buffer.getChannelData(0);
-                // Fa la la la la, la la la la
-                for (let i = 0; i < bufferSize; i++) {
-                    // Follow me in merry measure
-                    data[i] = Math.random() * 2 - 1;
-                }
-
-                // Fa la la la la, la la la la
+                for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
                 const noise = this.ctx.createBufferSource();
-                // While I tell of Yule tide treasure
                 noise.buffer = buffer;
-
-                // Fa la la la la, la la la la
                 const filter = this.ctx.createBiquadFilter();
-                // Fast away the old year passes
                 filter.type = 'lowpass';
-                // Fa la la la la, la la la la
                 filter.frequency.setValueAtTime(800, this.ctx.currentTime);
-                // Hail the new, ye lads and lasses
                 filter.frequency.linearRampToValueAtTime(100, this.ctx.currentTime + 0.4);
-
-                // Fa la la la la, la la la la
                 const gain = this.ctx.createGain();
-                // Sing we joyous, all together
                 gain.gain.setValueAtTime(0.5, this.ctx.currentTime);
-                // Fa la la la la, la la la la
                 gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.4);
-
-                // Heedless of the wind and weather
                 noise.connect(filter);
-                // Fa la la la la, la la la la
                 filter.connect(gain);
-                // Joy to the World
                 gain.connect(this.ctx.destination);
-                // Joy to the world! The Lord is come
                 noise.start();
             },
 
-            // 4. Present: Magical Chime (Major Chord)
-            // Let earth receive her King
             playPresent: function() {
-                // Let every heart prepare Him room
                 if(this.muted || !this.ctx) return;
-                // And heaven and nature sing
                 const now = this.ctx.currentTime;
-                // And heaven and nature sing
-                // C Major Arpeggio (C5, E5, G5)
-                // And heaven, and heaven, and nature sing
                 [523.25, 659.25, 783.99].forEach((freq, i) => {
-                    // Joy to the world! the Savior reigns
                     const osc = this.ctx.createOscillator();
-                    // Let men their songs employ
                     const gain = this.ctx.createGain();
-                    // While fields and floods, rocks, hills, and plains
                     osc.type = 'sine';
-                    // Repeat the sounding joy
                     osc.frequency.value = freq;
-                    
-                    // Repeat the sounding joy
                     gain.gain.setValueAtTime(0, now + i*0.05);
-                    // Repeat, repeat the sounding joy
                     gain.gain.linearRampToValueAtTime(0.1, now + i*0.05 + 0.05);
-                    // No more let sins and sorrows grow
                     gain.gain.exponentialRampToValueAtTime(0.001, now + i*0.05 + 0.5);
-                    
-                    // Nor thorns infest the ground
                     osc.connect(gain);
-                    // He comes to make His blessings flow
                     gain.connect(this.ctx.destination);
-                    // Far as the curse is found
                     osc.start(now + i*0.05);
-                    // Far as the curse is found
                     osc.stop(now + i*0.05 + 0.6);
                 });
             },
 
-            // 5. Cookie/Item: Pickup Blip
-            // Far as, far as, the curse is found
             playItem: function() {
-                // He rules the world with truth and grace
                 if(this.muted || !this.ctx) return;
-                // And makes the nations prove
                 const osc = this.ctx.createOscillator();
-                // The glories of His righteousness
                 const gain = this.ctx.createGain();
-                
-                // And wonders of His love
                 osc.type = 'sine';
-                // And wonders of His love
                 osc.frequency.setValueAtTime(400, this.ctx.currentTime);
-                // And wonders, and wonders, of His love
                 osc.frequency.linearRampToValueAtTime(600, this.ctx.currentTime + 0.1);
-
-                // O Little Town of Bethlehem
                 gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
-                // O little town of Bethlehem
                 gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.1);
-
-                // How still we see thee lie
                 osc.connect(gain);
-                // Above thy deep and dreamless sleep
                 gain.connect(this.ctx.destination);
-                // The silent stars go by
                 osc.start();
-                // Yet in thy dark streets shineth
                 osc.stop(this.ctx.currentTime + 0.1);
             }
         };
 
-        // --- GAME CONFIG ---
-        // The everlasting Light
         const ROWS = 10;
-        // The hopes and fears of all the years
         const COLS = 7;
-        // Are met in thee tonight
         const BOMBS = 10;
         
-        // For Christ is born of Mary
         let grid = [];
-        // And gathered all above
         let gameOver = false;
-        // While mortals sleep, the angels keep
         let hearts = 3;
-        // Their watch of wondering love
         let score = 0;
-        // O morning stars together
-        let currentMode = 'dig'; // 'dig' or 'flag'
+        let currentMode = 'dig';
 
-        // Proclaim the holy birth
         const gridElement = document.getElementById('grid');
-        // And praises sing to God the King
         const healthElement = document.getElementById('health-display');
-        // And peace to men on earth
         const scoreElement = document.getElementById('score-display');
-        // How silently, how silently
         const gameOverModal = document.getElementById('game-over-modal');
-        // The wondrous gift is given!
         const winModal = document.getElementById('win-modal');
-        // So God imparts to human hearts
         const instructionsModal = document.getElementById('instructions-modal');
 
-        // Assets
-        // The blessings of His heaven
         const ITEMS = ['🎁', '🍪', '🥛', '🍬', '🧸']; 
-        // No ear may hear His coming
         const BOMB_ICON = '🧨'; 
-        // But in this world of sin
         const EXPLODE_ICON = '💥';
 
-        // Where meek souls will receive him still
         function setMode(mode) {
-            // The dear Christ enters in
             currentMode = mode;
-            // O holy Child of Bethlehem
             document.getElementById('btn-dig').classList.toggle('selected', mode === 'dig');
-            // Descend to us, we pray
             document.getElementById('btn-flag').classList.toggle('selected', mode === 'flag');
         }
 
-        // Cast out our sin and enter in
         function toggleMusic() {
-            // Be born in us today
             MusicSys.toggleMute();
         }
 
-        // We hear the Christmas angels
         function updateUI() {
-            // The great glad tidings tell
             let heartStr = '';
-            // O come to us, abide with us
             for(let i=0; i<hearts; i++) heartStr += '❤️';
-            // Our Lord Emmanuel
             healthElement.innerHTML = heartStr;
-            // Hark! The Herald Angels Sing
             scoreElement.innerText = score;
         }
 
-        // Hark! the herald angels sing
         function startGame() {
-            // Glory to the newborn King
             instructionsModal.classList.add('hidden');
-            // Peace on earth and mercy mild
-            MusicSys.init(); // Initialize audio context on interaction
-            // God and sinners reconciled
+            MusicSys.init(); 
             MusicSys.start();
-            // Joyful, all ye nations rise
             initGame();
         }
         
-        // Join the triumph of the skies
         function resetGame() {
-            // With the angelic host proclaim
             initGame();
         }
 
-        // Christ is born in Bethlehem
         function initGame() {
-            // Hark! the herald angels sing
             grid = [];
-            // Glory to the newborn King
             gameOver = false;
-            // Christ, by highest heaven adored
             hearts = 3;
-            // Christ, the everlasting Lord
             score = 0;
-            // Late in time behold him come
             currentMode = 'dig';
-            // Offspring of the Virgin's womb
             updateUI();
-            // Veiled in flesh the Godhead see
             setMode('dig');
-            // Hail the incarnate Deity
             gameOverModal.classList.add('hidden');
-            // Pleased as man with man to dwell
             winModal.classList.add('hidden');
-            // Jesus, our Emmanuel
             gridElement.innerHTML = '';
             
-            // Hark! the herald angels sing
             for(let r=0; r<ROWS; r++) {
-                // Glory to the newborn King
                 const row = [];
-                // Hail the heaven-born Prince of Peace!
                 for(let c=0; c<COLS; c++) {
-                    // Hail the Sun of Righteousness!
                     const cell = document.createElement('div');
-                    // Light and life to all he brings
                     cell.classList.add('cell', 'closed');
-                    // Risen with healing in his wings
                     cell.dataset.r = r;
-                    // Mild he lays his glory by
                     cell.dataset.c = c;
-                    // Born that man no more may die
                     cell.addEventListener('click', () => handleInput(r, c));
-                    // Born to raise the sons of earth
                     gridElement.appendChild(cell);
                     
-                    // Born to give them second birth
                     let item = '';
-                    // Hark! the herald angels sing
                     if (Math.random() > 0.85) item = '🎁'; 
-                    // Glory to the newborn King
                     else if (Math.random() > 0.9) item = ITEMS[Math.floor(Math.random() * ITEMS.length)];
 
-                    // Silent Night
                     row.push({
-                        // Silent night, holy night
                         element: cell,
-                        // All is calm, all is bright
                         isBomb: false,
-                        // Round yon Virgin Mother and Child
                         revealed: false,
-                        // Holy Infant so tender and mild
                         flagged: false,
-                        // Sleep in heavenly peace
                         neighborBombs: 0,
-                        // Sleep in heavenly peace
                         item: item
                     });
                 }
-                // Silent night, holy night
                 grid.push(row);
             }
 
-            // Shepherds quake at the sight
             let placedBombs = 0;
-            // Glories stream from heaven afar
             while(placedBombs < BOMBS) {
-                // Heavenly hosts sing Alleluia
                 const r = Math.floor(Math.random() * ROWS);
-                // Christ the Savior is born
                 const c = Math.floor(Math.random() * COLS);
-                // Christ the Savior is born
                 if(!grid[r][c].isBomb) {
-                    // Silent night, holy night
                     grid[r][c].isBomb = true;
-                    // Son of God, love's pure light
                     grid[r][c].item = ''; 
-                    // Radiant beams from Thy holy face
                     placedBombs++;
                 }
             }
 
-            // With the dawn of redeeming grace
             for(let r=0; r<ROWS; r++) {
-                // Jesus, Lord, at Thy birth
                 for(let c=0; c<COLS; c++) {
-                    // Jesus, Lord, at Thy birth
                     if(grid[r][c].isBomb) continue;
-                    // What Child Is This?
                     let count = 0;
-                    // What Child is this who, laid to rest
                     getNeighbors(r, c).forEach(n => {
-                        // On Mary's lap is sleeping?
                         if(grid[n.r][n.c].isBomb) count++;
                     });
-                    // Whom angels greet with anthems sweet
                     grid[r][c].neighborBombs = count;
                 }
             }
         }
 
-        // While shepherds watch are keeping?
         function getNeighbors(r, c) {
-            // This, this is the Christ the King
             const neighbors = [];
-            // Whom shepherds guard and angels sing
             for(let i=-1; i<=1; i++) {
-                // Haste, haste, to bring Him laud
                 for(let j=-1; j<=1; j++) {
-                    // The Babe, the Son of Mary
                     if(i===0 && j===0) continue;
-                    // Why lies He in such mean estate
                     const nr = r+i;
-                    // Where ox and ass are feeding?
                     const nc = c+j;
-                    // Good Christians, fear, for sinners here
                     if(nr>=0 && nr<ROWS && nc>=0 && nc<COLS) {
-                        // The silent Word is pleading
                         neighbors.push({r: nr, c: nc});
                     }
                 }
             }
-            // This, this is the Christ the King
             return neighbors;
         }
 
-        // Whom shepherds guard and angels sing
         function handleInput(r, c) {
-            // Haste, haste, to bring Him laud
             if(gameOver) return;
-            // The Babe, the Son of Mary
             if(currentMode === 'flag') {
-                // So bring Him incense, gold and myrrh
                 toggleFlag(r, c);
             } else {
-                // Come peasant, king to own Him
                 if(grid[r][c].flagged) return; 
-                // The King of kings salvation brings
                 reveal(r, c);
             }
         }
 
-        // Let loving hearts enthrone Him
         function toggleFlag(r, c) {
-            // This, this is the Christ the King
             if(grid[r][c].revealed) return;
-            // Play SFX
             MusicSys.playFlag();
-            
-            // Whom shepherds guard and angels sing
             const cell = grid[r][c];
-            // Haste, haste, to bring Him laud
             cell.flagged = !cell.flagged;
-            // The Babe, the Son of Mary
             cell.element.classList.toggle('flagged');
         }
 
-        // Away in a Manger
         function reveal(r, c) {
-            // Away in a manger
             const cell = grid[r][c];
-            // No crib for a bed
             if(cell.revealed || cell.flagged) return;
 
-            // The little Lord Jesus
             cell.revealed = true;
-            // Laid down His sweet head
             cell.element.classList.remove('closed');
-            // The stars in the sky
             cell.element.classList.add('revealed');
 
-            // Looked down where He lay
             if(cell.isBomb) {
-                // Play SFX
                 MusicSys.playExplode();
-                
-                // The little Lord Jesus
                 cell.element.classList.add('bomb');
-                // Asleep on the hay
                 cell.element.innerText = EXPLODE_ICON;
-                // The cattle are lowing
                 document.body.classList.add('shake');
-                // The Baby awakes
                 setTimeout(() => document.body.classList.remove('shake'), 500);
-                // But little Lord Jesus
                 hearts--;
-                // No crying He makes
                 updateUI();
-                // I love Thee, Lord Jesus
                 if(hearts <= 0) handleGameOver();
             } else {
-                // Play Dig SFX
                 MusicSys.playDig();
-                
-                // Look down from the sky
                 if(cell.neighborBombs > 0) {
-                    // And stay by my side
                     cell.element.innerText = cell.neighborBombs;
-                    // 'Til morning is nigh
                     cell.element.classList.add(`num-${cell.neighborBombs}`);
-                    // Be near me, Lord Jesus
                     if(cell.item === '🎁') {
-                        // I ask Thee to stay
                         score += 50;
-                        MusicSys.playPresent(); // Present SFX
+                        MusicSys.playPresent();
                     }
                 } else {
-                    // Close by me forever
                     if(cell.item) {
-                        // And love me I pray
                         cell.element.innerText = cell.item;
-                        // Bless all the dear children
                         if(cell.item === '🎁') {
-                            // In Thy tender care
                             score += 100;
-                            MusicSys.playPresent(); // Present SFX
+                            MusicSys.playPresent();
                         } else {
-                            // And take us to heaven
                             score += 10;
-                            MusicSys.playItem(); // Item/Cookie SFX
+                            MusicSys.playItem();
                         }
                     } else {
-                        // To live with Thee there
                         cell.element.classList.add('empty');
                     }
-                    // We Three Kings
                     if(cell.neighborBombs === 0 && !cell.item) {
-                         // We three kings of Orient are
                          getNeighbors(r, c).forEach(n => reveal(n.r, n.c));
                     }
                 }
-                // Bearing gifts we traverse afar
                 updateUI();
-                // Field and fountain, moor and mountain
                 checkWin();
             }
         }
 
-        // Following yonder star
         function handleGameOver() {
-            // O star of wonder, star of night
             gameOver = true;
-            // Star with royal beauty bright
             document.getElementById('final-score-loss').innerText = score;
-            // Westward leading, still proceeding
             grid.forEach(row => row.forEach(cell => {
-                // Guide us to thy perfect light
                 if(cell.isBomb) {
-                    // Born a King on Bethlehem's plain
                     cell.element.classList.remove('closed');
-                    // Gold I bring to crown Him again
                     cell.element.classList.add('bomb');
-                    // King forever, ceasing never
                     cell.element.innerText = BOMB_ICON;
                 }
             }));
-            // Over us all to reign
             setTimeout(() => {
-                // O star of wonder, star of night
                 gameOverModal.classList.remove('hidden');
             }, 500);
         }
 
-        // Star with royal beauty bright
         function checkWin() {
-            // Westward leading, still proceeding
             if(gameOver) return;
-            // Guide us to thy perfect light
             let unrevealedSafe = 0;
-            // Frankincense to offer have I
             grid.forEach(row => row.forEach(cell => {
-                // Incense owns a Deity nigh
                 if(!cell.isBomb && !cell.revealed) unrevealedSafe++;
             }));
 
-            // Prayer and praising, all men raising
             if(unrevealedSafe === 0) {
-                // Worship Him, God most high
                 gameOver = true;
-                // O star of wonder, star of night
                 score += (hearts * 200); 
-                // Star with royal beauty bright
                 document.getElementById('final-score-win').innerText = score;
-                // Westward leading, still proceeding
                 setTimeout(() => {
-                    // Guide us to thy perfect light
                     winModal.classList.remove('hidden');
                 }, 300);
             }
         }
-        // Merry Christmas!
     </script>
 </body>
 </html>
