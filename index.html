@@ -24,12 +24,14 @@
         body {
             margin: 0;
             background-color: var(--bg-color);
+            /* Snowfall: Added extra layers for density */
             background-image: 
-                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px),
                 radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
-                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
-            background-size: 550px 550px, 350px 350px, 250px 250px;
-            background-position: 0 0, 40px 60px, 130px 270px;
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px),
+                radial-gradient(rgba(255,255,255,.5), rgba(255,255,255,.1) 2px, transparent 3px);
+            background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+            background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
             font-family: 'VT323', monospace;
             display: flex;
             justify-content: center;
@@ -44,8 +46,8 @@
         }
 
         @keyframes snow {
-            0% { background-position: 0 0, 40px 60px, 130px 270px; }
-            100% { background-position: 550px 550px, 390px 410px, 380px 520px; }
+            0% { background-position: 0 0, 40px 60px, 130px 270px, 70px 100px; }
+            100% { background-position: 550px 550px, 390px 410px, 380px 520px, 220px 250px; }
         }
 
         #game-container {
@@ -114,11 +116,15 @@
             border: 4px solid #fff;
             box-shadow: 0 0 20px #c62828;
             image-rendering: pixelated;
-            height: 60vh; 
+            
+            /* MOBILE LAYOUT */
+            height: 55vh; 
             aspect-ratio: 7/10;
             max-width: 95vw;
+            margin-bottom: 90px; 
         }
 
+        /* PC / DESKTOP LAYOUT */
         @media (min-width: 800px) and (min-height: 500px) {
             #game-container {
                 flex-direction: row;
@@ -135,6 +141,7 @@
             }
             #grid {
                 height: 85vh;
+                margin-bottom: 0;
             }
         }
 
@@ -188,7 +195,7 @@
 
         #mobile-controls {
             position: fixed;
-            bottom: 10px;
+            bottom: 15px;
             display: flex;
             gap: 15px;
             z-index: 50;
@@ -307,17 +314,20 @@
     </style>
 </head>
 <body>
+
     <audio id="bg-music" loop preload="auto" src="assets/SnowyNights.mp3"></audio>
 
     <div id="game-container">
         <div id="sidebar">
             <h1>MERRY<br>MINE-CRAFT</h1>
             <div class="subtitle">Holiday Edition</div>
+            
             <div class="mc-panel">
                 <div>❤️ <span id="health-display" class="hearts">3/3</span></div>
                 <div>🎁 <span id="score-display">0</span></div>
             </div>
         </div>
+
         <div id="grid"></div>
     </div>
 
@@ -366,11 +376,10 @@
                 this.ctx = new AudioContext();
 
                 this.audioElement.addEventListener('error', (e) => {
-                    console.log("MP3 failed to load/find. Check assets folder.");
+                    console.log("MP3 failed to load.");
                     this.useMp3 = false;
                 });
 
-                // GitHub Pages Case Sensitivity Check
                 if (this.audioElement.src) {
                     this.useMp3 = true;
                 }
@@ -383,7 +392,7 @@
                      const playPromise = this.audioElement.play();
                      if (playPromise !== undefined) {
                          playPromise.catch(error => {
-                             console.log("Auto-play prevented by browser policy.");
+                             console.log("Auto-play prevented.");
                          });
                      }
                 }
@@ -407,7 +416,7 @@
                     if(this.useMp3) this.audioElement.play().catch(e=>console.log(e));
                 }
             },
-
+            
             // SFX
             playDig: function() {
                 if(this.muted || !this.ctx) return;
