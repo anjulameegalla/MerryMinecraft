@@ -3,8 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Merry Mine-Craft</title>
     
+    <!-- SEO & METADATA -->
+    <title>Merry Mine-Craft - Holiday Edition</title>
+    <meta name="description" content="Play Merry Mine-Craft, a festive holiday puzzle game! Dig for gifts, avoid TNT, and survive the winter in this free online HTML5 game by Anjula Meegalla.">
+    <meta name="keywords" content="Minesweeper, Minecraft, Christmas Game, Holiday Puzzle, HTML5 Game, Browser Game, Free Game">
+    <meta name="author" content="anjula meegalla">
+    <meta name="theme-color" content="#0f1626">
+
+    <!-- OPEN GRAPH / SOCIAL MEDIA -->
+    <meta property="og:title" content="Merry Mine-Craft - Holiday Edition">
+    <meta property="og:description" content="Dig for gifts and avoid the TNT in this festive survival puzzle game! Can you beat the Grinch mode?">
+    <meta property="og:image" content="https://merrymc.online/assets/preview.png"> 
+    <meta property="og:url" content="https://merrymc.online">
+    <meta property="og:type" content="website">
+
+    <!-- TWITTER CARD -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Merry Mine-Craft">
+    <meta name="twitter:description" content="A festive twist on Minesweeper. Play now on MerryMC.online!">
+    
+    <!-- Santa Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎅</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     
@@ -24,6 +43,7 @@
 
         body {
             margin: 0;
+            padding-bottom: 20px;
             background-color: var(--bg-color);
             background-image: 
                 radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 4px),
@@ -50,6 +70,18 @@
             100% { background-position: 550px 550px, 390px 410px, 380px 520px, 220px 250px; }
         }
 
+        /* LOADING SCREEN */
+        #loading-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f1626; z-index: 200;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white; pointer-events: none; transition: opacity 0.5s;
+        }
+        .loading-text { font-size: 2rem; margin-bottom: 20px; text-shadow: 2px 2px 0 #000; }
+        .loading-bar-border { width: 250px; height: 30px; border: 4px solid #fff; padding: 2px; }
+        .loading-fill { height: 100%; width: 0%; background: #4caf50; animation: fillLoad 1.5s cubic-bezier(0.1, 0.7, 1.0, 0.1) forwards; }
+        @keyframes fillLoad { 0% { width: 0%; } 100% { width: 100%; } }
+
         #game-container {
             display: flex;
             flex-direction: column;
@@ -73,7 +105,7 @@
 
         h1 {
             margin: 0;
-            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-size: clamp(2.5rem, 6vw, 4rem);
             color: #ff5252;
             text-shadow: 4px 4px 0 #fff;
             letter-spacing: 2px;
@@ -102,40 +134,10 @@
             min-width: 200px;
             justify-content: center;
         }
-
+        
+        .panel-row { width: 100%; display: flex; justify-content: space-around; }
         .hearts { color: #d32f2f; text-shadow: 2px 2px 0 #000; letter-spacing: 2px; }
-
-        /* COMBO ANIMATION */
-        .combo-box {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: #ffd700;
-            color: #d32f2f;
-            border: 4px solid #fff;
-            padding: 5px 15px;
-            font-size: 2rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 0 #000;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            pointer-events: none;
-            opacity: 0;
-            z-index: 100;
-            white-space: nowrap;
-        }
-
-        .combo-active {
-            animation: popCombo 0.8s ease-out forwards;
-        }
-
-        @keyframes popCombo {
-            0% { transform: translate(-50%, 0%) scale(0.5); opacity: 0; }
-            20% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-            40% { transform: translate(-50%, -50%) scale(1.0); opacity: 1; }
-            80% { transform: translate(-50%, -80%) scale(1.0); opacity: 1; }
-            100% { transform: translate(-50%, -100%) scale(0.8); opacity: 0; }
-        }
+        .best-score { color: #ffd700; font-size: 1.2rem; }
 
         #grid {
             display: grid;
@@ -152,46 +154,27 @@
             margin-bottom: 90px;
         }
 
-        /* --- DESKTOP LAYOUT --- */
         @media (min-width: 800px) and (min-height: 500px) {
-            #game-container {
-                flex-direction: row;
-                justify-content: center;
-                gap: 50px;
-            }
-            #sidebar {
-                align-items: flex-end;
-                text-align: right;
-            }
-            h1 {
-                font-size: 5rem;
-                margin-bottom: 20px;
-            }
-            #grid {
-                height: 85vh;
-                margin-bottom: 0;
-            }
-            
+            #game-container { flex-direction: row; justify-content: center; gap: 50px; }
+            #sidebar { align-items: flex-end; text-align: right; }
+            h1 { font-size: 5rem; margin-bottom: 20px; }
+            #grid { height: 85vh; margin-bottom: 0; }
             #mute-btn { left: auto !important; right: 20px !important; }
         }
 
         .cell {
-            width: 100%;
-            height: 100%;
-            background-color: var(--grass-top);
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: clamp(12px, 2.5vh, 28px);
-            user-select: none;
-            position: relative;
+            width: 100%; height: 100%; background-color: var(--grass-top);
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            font-size: clamp(12px, 2.5vh, 28px); user-select: none; position: relative;
             border: 1px solid rgba(0,0,0,0.1);
             box-shadow: inset -4px -4px 0 rgba(0,0,0,0.15), inset 4px 4px 0 rgba(255,255,255,0.8);
             overflow: hidden;
+            transition: transform 0.05s, filter 0.1s;
         }
 
+        .cell:active { transform: scale(0.92); filter: brightness(0.8); }
         .cell.closed:hover { filter: brightness(0.95); }
+
         .cell.revealed { background-color: var(--dirt); box-shadow: inset 3px 3px 0 rgba(0,0,0,0.3); color: white; text-shadow: 2px 2px 0 #000; }
         .cell.revealed.empty { opacity: 0.95; }
         
@@ -200,76 +183,41 @@
         .cell.bomb { background-color: #d32f2f; animation: explode 0.4s; }
         .cell.flagged::after { content: '🚩'; font-size: 80%; filter: drop-shadow(2px 2px 0 rgba(255,255,255,0.5)); }
         
-        /* TNT Icon Style - SMALLER */
-        .tnt-icon { width: 60%; height: 60%; }
-
         #mobile-controls {
-            position: fixed;
-            bottom: 15px;
-            display: flex;
-            gap: 15px;
-            z-index: 50;
-            width: 100%;
-            justify-content: center;
-            pointer-events: none;
+            position: fixed; bottom: 20px; display: flex; gap: 15px;
+            z-index: 50; width: 100%; justify-content: center; pointer-events: none;
         }
 
         .tool-btn {
-            pointer-events: auto;
-            width: 70px;
-            height: 70px;
-            background: var(--ui-bg);
-            border: 4px solid;
-            border-color: var(--ui-border-light) var(--ui-border-dark) var(--ui-border-dark) var(--ui-border-light);
-            font-family: 'VT323', monospace;
-            font-size: 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            box-shadow: 0 4px 0 rgba(0,0,0,0.5);
-            transition: transform 0.1s;
+            pointer-events: auto; width: 70px; height: 70px; background: var(--ui-bg);
+            border: 4px solid; border-color: var(--ui-border-light) var(--ui-border-dark) var(--ui-border-dark) var(--ui-border-light);
+            font-family: 'VT323', monospace; font-size: 2rem; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; box-shadow: 0 4px 0 rgba(0,0,0,0.5); transition: transform 0.1s;
+            touch-action: manipulation;
         }
-
         .tool-btn:active { transform: translateY(4px); box-shadow: none; border-color: var(--ui-border-dark) var(--ui-border-light) var(--ui-border-light) var(--ui-border-dark); }
         .tool-btn.selected { background: #81c784; border-color: var(--ui-border-dark) var(--ui-border-light) var(--ui-border-light) var(--ui-border-dark); transform: scale(0.95); box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2); }
         
-        /* MOBILE BUTTON POSITIONS */
         #mute-btn { 
             width: 50px; height: 50px; font-size: 1.2rem; 
-            position: fixed; top: 20px; 
-            left: 20px; 
-            right: auto;
-            pointer-events: auto; 
+            position: fixed; top: 20px; left: 20px; right: auto; pointer-events: auto; 
         }
         
-        /* Info Button inside modal, custom style */
+        /* Info Button inside modal */
         .info-icon-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #2196F3;
-            color: white;
-            border: 3px solid #fff;
-            width: 40px; 
-            height: 40px;
-            font-size: 1.5rem;
-            font-family: 'VT323', monospace;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: absolute; top: 15px; right: 15px;
+            background: #2196F3; color: white; border: 3px solid #fff;
+            width: 40px; height: 40px; font-size: 1.5rem;
+            font-family: 'VT323', monospace; cursor: pointer;
+            display: flex; justify-content: center; align-items: center;
             box-shadow: 0 4px 0 rgba(0,0,0,0.5);
+            touch-action: manipulation;
         }
         .info-icon-btn:active { transform: translateY(2px); box-shadow: none; }
 
-        /* Confetti Canvas */
         #confetti-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 150;
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; pointer-events: none; z-index: 150;
         }
 
         .modal {
@@ -287,6 +235,7 @@
             font-size: 1.8rem; font-family: 'VT323', monospace; cursor: pointer;
             text-shadow: 2px 2px 0 #000; margin-top: 20px; width: 280px;
             transition: background 0.2s;
+            touch-action: manipulation;
         }
         .mc-btn:hover { background: #888; }
         .mc-btn:active { border-color: #333 #fff #fff #333; }
@@ -305,6 +254,10 @@
         .info-table { color: white; width: 100%; font-size: 1.2rem; margin-bottom: 15px; border-collapse: collapse; text-align: center;}
         .info-table td, .info-table th { border: 1px solid #555; padding: 5px; }
         .info-table th { background: #333; color: #81c784; }
+        
+        .footer { margin-top: 20px; font-size: 1.2rem; color: #ccc; text-shadow: 1px 1px 0 #000; }
+        .heart-anim { color: #e91e63; display: inline-block; animation: beat 1s infinite; }
+        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
 
         @keyframes explode { 0% { background: #fff; transform: scale(1.2); } 50% { background: #ffeb3b; transform: scale(1.1) rotate(5deg); } 100% { background: #d32f2f; transform: scale(1) rotate(0deg); } }
         .shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
@@ -314,6 +267,14 @@
 </head>
 <body>
 
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-text">GENERATING TERRAIN...</div>
+        <div class="loading-bar-border">
+            <div class="loading-fill"></div>
+        </div>
+    </div>
+
     <audio id="bg-music" loop preload="auto" src="assets/SnowyNights.mp3"></audio>
     <canvas id="confetti-canvas"></canvas>
 
@@ -322,17 +283,19 @@
             <h1>MERRY<br>MINE-CRAFT</h1>
             <div class="subtitle">Holiday Edition</div>
             
-            <div class="mc-panel">
-                <div>❤️ <span id="health-display" class="hearts">3/3</span></div>
-                <div>🎁 <span id="score-display">0</span></div>
+            <div class="mc-panel" style="flex-direction: column; align-items: flex-start;">
+                <div class="panel-row">
+                    <div>❤️ <span id="health-display" class="hearts">3/3</span></div>
+                    <div>🎁 <span id="score-display">0</span></div>
+                </div>
+                <div class="panel-row" style="margin-top: 5px; font-size: 1rem; color: #888;">
+                    <div class="best-score">BEST: <span id="best-score-display">0</span></div>
+                </div>
             </div>
             
             <div class="mc-panel" style="font-size: 1.2rem; margin-top: 5px;">
                 LEVEL: <span id="level-display">1</span>
             </div>
-
-            <!-- Combo Animation -->
-            <div id="combo-display" class="combo-box">COMBO +50!</div>
         </div>
         
         <div id="grid"></div>
@@ -370,7 +333,9 @@
         <!-- Info Button Moved Inside -->
         <button class="info-icon-btn" onclick="showInfo()">?</button>
 
-        <h1 style="color: #55ff55; font-size: 2.5rem; margin:0 0 10px 0;">HOW TO PLAY</h1>
+        <h1 style="color: #ff5252; font-size: 3rem; margin-bottom: 10px; text-shadow: 4px 4px 0 #fff; letter-spacing: 2px;">MERRY<br>MINE-CRAFT</h1>
+        <br>
+        <h2 style="color: #55ff55; font-size: 2rem; margin: 0 0 10px 0; text-shadow: 2px 2px 0 #000;">HOW TO PLAY</h2>
         <div class="mc-panel" style="flex-direction: column; width: 85%; max-width: 350px;">
             <ul class="instructions-list">
                 <li>⛏️ <b>DIG</b> snow to find GIFTS 🎁</li>
@@ -378,6 +343,7 @@
                 <li>🧨 <b>TNT</b> hurts you! Avoid it!</li>
                 <li>🚩 Use <b>FLAGS</b> to mark TNT.</li>
                 <li>🔢 <b>Numbers</b> show TNTs nearby.</li>
+                <li style="margin-top: 10px; font-size: 1rem;">Click ? to see how the game works</li>
             </ul>
         </div>
         <p style="margin-bottom: 5px; font-size: 1.5rem; color: #fff; text-shadow: 2px 2px 0 #000;">SELECT DIFFICULTY:</p>
@@ -386,6 +352,9 @@
             <button class="diff-btn btn-med" onclick="startGame('medium')">SANTA</button>
             <button class="diff-btn btn-hard" onclick="startGame('hard')">GRINCH</button>
         </div>
+        
+        <!-- Footer -->
+        <div class="footer">Made with <span class="heart-anim">❤️</span> by <a href="https://anjula.live" target="_blank" style="color: #fff; text-decoration: none;">Anjula M.</a></div>
     </div>
 
     <!-- Game Over Modal -->
@@ -403,6 +372,15 @@
     </div>
 
     <script>
+        // --- LOADING SCREEN ---
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loading-screen');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 1500); 
+        });
+
         // --- AUDIO SYSTEM ---
         const MusicSys = {
             ctx: null, muted: false, useMp3: false,
@@ -410,6 +388,13 @@
             init: function() {
                 window.AudioContext = window.AudioContext || window.webkitAudioContext;
                 this.ctx = new AudioContext();
+                
+                const savedMute = localStorage.getItem('merry-minecraft-muted');
+                if (savedMute === 'true') {
+                    this.muted = true;
+                    document.getElementById('mute-btn').innerText = '🔇';
+                }
+
                 this.audioElement.addEventListener('error', (e) => { this.useMp3 = false; });
                 if (this.audioElement.src) this.useMp3 = true;
             },
@@ -423,12 +408,14 @@
             stop: function() { if(this.useMp3) { this.audioElement.pause(); this.audioElement.currentTime = 0; } },
             toggleMute: function() {
                 this.muted = !this.muted;
+                localStorage.setItem('merry-minecraft-muted', this.muted);
                 document.getElementById('mute-btn').innerText = this.muted ? '🔇' : '🔊';
                 if(this.muted) { if(this.useMp3) this.audioElement.pause(); } else { if(this.useMp3) this.audioElement.play().catch(e=>{}); }
             },
-            playDig: function() { this.playNoise(0.1, 1000, 0.2); },
-            playFlag: function() { this.playOsc('triangle', 800, 1200, 0.05); },
-            playExplode: function() { this.playNoise(0.5, 800, 0.5); },
+            vibrate: function(ms) { if (navigator.vibrate) navigator.vibrate(ms); },
+            playDig: function() { this.playNoise(0.1, 1000, 0.2); this.vibrate(20); },
+            playFlag: function() { this.playOsc('triangle', 800, 1200, 0.05); this.vibrate(30); },
+            playExplode: function() { this.playNoise(0.5, 800, 0.5); this.vibrate([50, 50, 50]); },
             playPresent: function() { this.playChord([523.25, 659.25, 783.99]); },
             playItem: function() { this.playOsc('sine', 400, 600, 0.1); },
             playOsc: function(type, f1, f2, dur) {
@@ -499,22 +486,17 @@
         function animateConfetti() {
             if (confettiParticles.length === 0) return;
             confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-            
             for (let i = 0; i < confettiParticles.length; i++) {
                 let p = confettiParticles[i];
-                p.y += p.speed;
-                p.angle += 0.1;
-                
+                p.y += p.speed; p.angle += 0.1;
                 confettiCtx.save();
                 confettiCtx.translate(p.x, p.y);
                 confettiCtx.rotate(p.angle);
                 confettiCtx.fillStyle = p.color;
                 confettiCtx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
                 confettiCtx.restore();
-
-                if (p.y > confettiCanvas.height) p.y = -20; // Loop
+                if (p.y > confettiCanvas.height) p.y = -20; 
             }
-            
             if (!gameOverModal.classList.contains('hidden') || !winModal.classList.contains('hidden')) {
                 requestAnimationFrame(animateConfetti);
             } else {
@@ -526,30 +508,19 @@
         let ROWS = 10; let COLS = 7; let BOMBS = 10; let MAX_HEARTS = 3;
         let grid = []; let gameOver = false; let hearts = 3; let score = 0;
         let currentMode = 'dig'; let currentDifficulty = 'medium';
-        let level = 1;
-        let lastDigTime = 0; // Combo timer
-        let comboStreak = 0; // Track consecutive fast digs
+        let level = 1; let bestScore = 0;
 
         const gridElement = document.getElementById('grid');
         const healthElement = document.getElementById('health-display');
         const scoreElement = document.getElementById('score-display');
+        const bestElement = document.getElementById('best-score-display');
         const levelElement = document.getElementById('level-display');
         const gameOverModal = document.getElementById('game-over-modal');
         const winModal = document.getElementById('win-modal');
         const instructionsModal = document.getElementById('instructions-modal');
         const ITEMS = ['🎁', '🍪', '🥛', '🍬', '🧸']; 
         
-        // Pixel Art TNT Icon (SVG) - Adjusted Size to 60%
-        const TNT_ICON = `<svg class="tnt-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="2" width="36" height="36" fill="#D32F2F" stroke="#000" stroke-width="2"/>
-            <rect x="2" y="14" width="36" height="12" fill="#FFFFFF"/>
-            <text x="20" y="24" font-family="monospace" font-weight="bold" font-size="14" fill="#000" text-anchor="middle">TNT</text>
-            <rect x="16" y="2" width="2" height="6" fill="#000" opacity="0.3"/>
-            <rect x="22" y="2" width="2" height="6" fill="#000" opacity="0.3"/>
-            <rect x="16" y="32" width="2" height="6" fill="#000" opacity="0.3"/>
-            <rect x="22" y="32" width="2" height="6" fill="#000" opacity="0.3"/>
-        </svg>`;
-        
+        const BOMB_ICON = '🧨';
         const EXPLODE_ICON = '💥';
 
         function setMode(mode) {
@@ -558,63 +529,63 @@
             document.getElementById('btn-flag').classList.toggle('selected', mode === 'flag');
         }
         function toggleMusic() { MusicSys.toggleMute(); }
+        
         function updateUI() {
             let heartStr = ''; for(let i=0; i<hearts; i++) heartStr += '❤️';
             healthElement.innerHTML = heartStr; 
             scoreElement.innerText = score;
             levelElement.innerText = level;
         }
+        
+        function loadBestScore(diff) {
+            const saved = localStorage.getItem(`merry-minecraft-score-${diff}`);
+            bestScore = saved ? parseInt(saved) : 0;
+            bestElement.innerText = bestScore;
+        }
+
+        function saveBestScore() {
+            if(score > bestScore) {
+                bestScore = score;
+                localStorage.setItem(`merry-minecraft-score-${currentDifficulty}`, bestScore);
+                bestElement.innerText = bestScore;
+            }
+        }
 
         function showInfo() { document.getElementById('info-modal').classList.remove('hidden'); }
         function closeInfo() { document.getElementById('info-modal').classList.add('hidden'); }
 
         function startGame(difficulty) {
-            currentDifficulty = difficulty;
-            level = 1;
-            score = 0; 
-            
-            // Set Difficulty
+            currentDifficulty = difficulty; level = 1; score = 0; 
             if(difficulty === 'easy') { ROWS = 8; COLS = 6; BOMBS = 5; MAX_HEARTS = 3; }
             else if (difficulty === 'medium') { ROWS = 10; COLS = 7; BOMBS = 10; MAX_HEARTS = 3; }
-            else if (difficulty === 'hard') { ROWS = 12; COLS = 8; BOMBS = 20; MAX_HEARTS = 3; } // Grinch now has 3 hearts
-            
+            else if (difficulty === 'hard') { ROWS = 12; COLS = 8; BOMBS = 20; MAX_HEARTS = 3; } 
+            loadBestScore(difficulty);
             instructionsModal.classList.add('hidden');
             MusicSys.init(); MusicSys.start();
             initGame();
         }
         
         function resetGame(fullReset = false) { 
-            gameOverModal.classList.add('hidden');
-            winModal.classList.add('hidden');
+            gameOverModal.classList.add('hidden'); winModal.classList.add('hidden');
             confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-            
-            if (fullReset) {
-                startGame(currentDifficulty); // Reset Level & Score
-            } else {
-                initGame(); // Rebuild grid for next level
-            }
+            if (fullReset) { startGame(currentDifficulty); } else { initGame(); }
         }
 
         function nextLevel() {
             level++;
-            // Endless Scaling
             if (currentDifficulty === 'easy' && BOMBS < 9) BOMBS++;
             else if (currentDifficulty === 'medium' && BOMBS < 19) BOMBS++;
             else if (currentDifficulty === 'hard') {
-                // Hard mode scaling: +2 bombs, cap at reasonable limit (e.g. 90% full)
                 let max = (ROWS * COLS) - 5; 
                 if (BOMBS < max) BOMBS += 2; 
             }
-            
-            hearts = MAX_HEARTS; // Heal player
+            hearts = MAX_HEARTS; 
             resetGame(false);
         }
 
         function initGame() {
             grid = []; gameOver = false; hearts = MAX_HEARTS; currentMode = 'dig';
-            lastDigTime = 0; comboStreak = 0;
             updateUI(); setMode('dig');
-            
             gridElement.innerHTML = '';
             gridElement.style.gridTemplateColumns = `repeat(${COLS}, minmax(0, 1fr))`;
             
@@ -670,14 +641,6 @@
             const cell = grid[r][c]; cell.flagged = !cell.flagged; cell.element.classList.toggle('flagged');
         }
 
-        function showCombo() {
-            const el = document.getElementById('combo-display');
-            // Reset animation
-            el.classList.remove('combo-active');
-            void el.offsetWidth; // Trigger reflow
-            el.classList.add('combo-active');
-        }
-
         function reveal(r, c) {
             const cell = grid[r][c];
             if(cell.revealed || cell.flagged) return;
@@ -691,20 +654,6 @@
                 if(hearts <= 0) handleGameOver();
             } else {
                 MusicSys.playDig();
-                
-                // COMBO CHECK (Streak based)
-                const now = Date.now();
-                if (now - lastDigTime < 2000) { 
-                    comboStreak++;
-                    if (comboStreak > 1) { // Only trigger combo after 2 rapid digs
-                        score += 50; 
-                        showCombo(); 
-                    }
-                } else {
-                    comboStreak = 1; // Reset streak to 1 (current dig counts)
-                }
-                lastDigTime = now;
-
                 if(cell.neighborBombs > 0) {
                     cell.element.innerText = cell.neighborBombs; cell.element.classList.add(`num-${cell.neighborBombs}`);
                     if(cell.item === '🎁') { score += 50; MusicSys.playPresent(); }
@@ -721,11 +670,12 @@
 
         function handleGameOver() {
             gameOver = true; document.getElementById('final-score-loss').innerText = score;
+            saveBestScore(); 
             grid.forEach(row => row.forEach(cell => { 
                 if(cell.isBomb) { 
                     cell.element.classList.remove('closed'); 
                     cell.element.classList.add('bomb'); 
-                    cell.element.innerHTML = TNT_ICON; 
+                    cell.element.innerText = BOMB_ICON; 
                 } 
             }));
             setTimeout(() => { document.getElementById('game-over-modal').classList.remove('hidden'); }, 500);
@@ -738,12 +688,9 @@
             if(unrevealedSafe === 0) {
                 gameOver = true; score += (hearts * 200);
                 document.getElementById('final-score-win').innerText = score;
-                
-                // Confetti runs immediately when win logic is confirmed
+                saveBestScore(); 
                 createConfetti(); 
-                setTimeout(() => { 
-                    document.getElementById('win-modal').classList.remove('hidden'); 
-                }, 300);
+                setTimeout(() => { document.getElementById('win-modal').classList.remove('hidden'); }, 300);
             }
         }
     </script>
